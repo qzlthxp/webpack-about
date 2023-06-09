@@ -4,6 +4,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MinCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const Webpack = require('webpack')
+// vue 打包相关 https://vue-loader.vuejs.org/zh/
+// 注意 vue-loader 版本 15.x 对应 Vue2
+const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = {
   mode: 'development',
@@ -26,6 +29,10 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
       {
         test: /\.(png|jpg|gif|jpeg)$/,
         exclude: [/node_modules/],
@@ -67,6 +74,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new VueLoaderPlugin(),
     new CopyPlugin({
       patterns: [
         {
